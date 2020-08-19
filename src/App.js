@@ -1,20 +1,25 @@
+// React
 import React, { Component } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
+// CSS
 import './App.css';
 
-import { Route, Switch, Redirect } from 'react-router-dom';
+// Redux
 import { connect } from 'react-redux';
-
 import { setCurrentUser } from './redux/user/user.actions';
 
+// Components
 import Header from './components/header/Header.component';
 import HomePage from './pages/homepage/HomePage.component';
 import ShopPage from './pages/shop/ShopPage.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/SignInAndSignUpPage.component';
 
+// Firebase
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 class App extends Component {
+  
   unsubscribeFromAuth = null;
   componentDidMount() {
     const { setCurrentUser } = this.props;
