@@ -23,7 +23,20 @@
   }
 
   .quantity {
-    padding-left: 20px;
+    display: flex;
+    justify-content: center;
+
+    .arrow {
+      cursor: pointer;
+
+      &.hidden {
+        opacity: .25;
+      }
+    }
+
+    .value {
+      margin: 0 10px;
+    }
   }
 
   .remove-button-container {
