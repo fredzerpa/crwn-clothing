@@ -29,8 +29,9 @@
     .arrow {
       cursor: pointer;
 
-      &.hidden {
+      &.unavailable {
         opacity: .25;
+        cursor: default;
       }
     }
 
