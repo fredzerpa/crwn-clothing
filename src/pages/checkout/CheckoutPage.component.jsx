@@ -14,10 +14,13 @@ import { connect } from 'react-redux';
 // Components
 import CheckoutItem from '../../components/checkout-item/CheckoutItem.component';
 
+// Stripe
+import StripeButton from '../../components/stripe-button/StripeButton.component';
+
 // CSS
 import './CheckoutPage.styles.scss';
 
-const CheckoutPage = ({cartItems, total}) => (
+const CheckoutPage = ({ cartItems, total }) => (
   <div className='checkout-page'>
     <div className='checkout-header'>
       <div className='header-block'>
@@ -36,14 +39,16 @@ const CheckoutPage = ({cartItems, total}) => (
         <span>Remove</span>
       </div>
     </div>
-    {
-      cartItems.map(cartItem => 
-        <CheckoutItem key={cartItem.id} cartItem={cartItem} />
-      )
-    }
-    <div className='total'>
-      <span className=''>TOTAL: ${total}</span>
+    {cartItems.map(cartItem => (
+      <CheckoutItem key={cartItem.id} cartItem={cartItem} />
+    ))}
+    <div className='total'>TOTAL: ${total}</div>
+    <div className='test-warning'>
+      *Please use the following test credit card for Payments*
+      <br/>
+      4242 4242 4242 4242 - Exp: Any future date - CVV: Any 3 digits
     </div>
+    <StripeButton price={total} />
   </div>
 );
 
