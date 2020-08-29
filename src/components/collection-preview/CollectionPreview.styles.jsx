@@ -5,7 +5,12 @@ export const CollectionPreviewContainer = styled.div`
   flex-direction: column;
   margin-bottom: 30px;
 `;
-export const CollectionPreviewTitle = styled.h1`
+
+export const HeaderContainer = styled.div`
+  display: flex;
+`;
+
+export const TitleContainer = styled.h1`
   font-size: 28px;
   margin-bottom: 25px;
   cursor: pointer;
