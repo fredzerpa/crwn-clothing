@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Component
-import CollectionPreview from '../../components/collection-preview/CollectionPreview.component';
+import CollectionPreview from '../collection-preview/CollectionPreview.component';
 
 // Redux
 import { connect } from 'react-redux';

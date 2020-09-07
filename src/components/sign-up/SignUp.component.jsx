@@ -1,15 +1,16 @@
 // React
 import React, { Component } from 'react';
 
+// Redux
+import { connect } from 'react-redux';
+import { signUpStart } from '../../redux/user/user.actions.js';
+
 // CSS
-import {SignUpContainer, SignUpTitle} from './SignUp.styles.jsx';
+import { SignUpContainer, SignUpTitle } from './SignUp.styles.jsx';
 
 // Components
 import FormInput from '../form-input/FormInput.component';
 import CustomButton from '../custom-button/CustomButton.component';
-
-// Firebase
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
 class SignUp extends Component {
   constructor() {
@@ -27,25 +28,11 @@ class SignUp extends Component {
     event.preventDefault();
 
     const { displayName, email, password, confirmPassword } = this.state;
+    const { signUpStart } = this.props;
 
-    if (password !== confirmPassword) alert(`Password don't match`);
+    if (password !== confirmPassword) return alert(`Password don't match`);
 
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      await createUserProfileDocument(user, { displayName });
-
-      this.setState({
-        displayName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    signUpStart({ displayName, email, password });
   };
 
   handleChange = event => {
@@ -82,6 +69,7 @@ class SignUp extends Component {
             value={password}
             handleChange={this.handleChange}
             label='Password'
+            minLength='6'
           />
           <FormInput
             type='password'
@@ -89,6 +77,7 @@ class SignUp extends Component {
             value={confirmPassword}
             handleChange={this.handleChange}
             label='Confirm Password'
+            minLength='6'
           />
           <CustomButton type='submit'>SIGN UP</CustomButton>
         </form>
@@ -97,4 +86,8 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+const mapDispatchToProps = dispatch => ({
+  signUpStart: userCredentials => dispatch(signUpStart(userCredentials)),
+});
+
+export default connect(null, mapDispatchToProps)(SignUp);
