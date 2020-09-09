@@ -84,7 +84,6 @@ export function* onSignOutStart() {
 
 export function* signUp({ payload: { displayName, email, password } }) {
   try {
-    yield console.log('Sign Up beign fired');
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
     yield put(signUpSuccess({ user, additionalData: { displayName } }));
   } catch (error) {
