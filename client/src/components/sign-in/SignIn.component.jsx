@@ -30,7 +30,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    emailSignInStart(email, password);
+    await emailSignInStart(email, password);
   };
 
   const handleChange = event => {
