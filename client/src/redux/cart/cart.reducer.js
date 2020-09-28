@@ -4,6 +4,7 @@ import { addItemToCart, removeItemFromCart } from './cart.utils';
 const INITIAL_STATE = {
   hidden: true,
   cartItems: [],
+  error: null,
 };
 
 const cartReducer = (state = INITIAL_STATE, action) => {
@@ -38,6 +39,19 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         cartItems: [],
+      };
+
+    case CartActionTypes.FETCH_CART_SUCCESS:
+      return {
+        ...state,
+        cartItems: action.payload.cartItems
+      };
+
+    case CartActionTypes.FETCH_CART_FAILURE:
+    case CartActionTypes.UPDATE_CART_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
       };
 
     default:

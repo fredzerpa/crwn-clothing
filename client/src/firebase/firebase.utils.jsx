@@ -18,9 +18,9 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
-  const snapShot = await userRef.get();
+  const snapshot = await userRef.get();
 
-  if (!snapShot.exists) {
+  if (!snapshot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
 
@@ -38,6 +38,28 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   return userRef;
 };
+
+export const getUserCartRef = async (userId) => {
+  const userCartRef = firestore.collection('carts').where('userId', '==', userId);
+  const snapshot = await userCartRef.get();
+  if (snapshot.empty) {
+    const userCartDocRef = firestore.collection('carts').doc();
+    const updatedAt = new Date();
+    try {
+      await userCartDocRef.set({
+        userId,
+        cartItems: [],
+        updatedAt
+      });
+    } catch (error) {
+      console.log(`Error fetching cart from User: ${userId} \n${error.message}`);
+    }
+
+    return userCartDocRef;
+  }
+  
+  return snapshot.docs[0].ref;
+}
 
 export const addCollectionAndDocuments = async (
   collectionKey,
